@@ -9,11 +9,13 @@ local sql = setmetatable({},{
 	__call = function(self)
 
 		self.insert = function(plate,...)
+            if plate == 'VEHSTEST' then return end
 			local str = 'INSERT INTO %s (%s, %s) VALUES(?, ?)'
 			return MySQL.insert.await(str:format('renzu_stancer','plate','setting'),{plate,...})
 		end
 
 		self.save = function(string, data)
+            if plate == 'VEHSTEST' then return end
 			local str = 'UPDATE %s SET setting = ? WHERE %s = ?'
 			local isExist = self.query(string)
 			if isExist[1] then
